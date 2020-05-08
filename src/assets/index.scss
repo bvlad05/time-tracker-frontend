@@ -1,0 +1,12 @@
+@import '~bulma/bulma';
+
+.is-v-centered {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+}
+
+.min-100vh {
+  min-height: 100vh;
+}
