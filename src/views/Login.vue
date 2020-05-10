@@ -1,10 +1,10 @@
 <template>
-  <form @submit.prevent="login" action="#" class="card">
+  <form @submit.prevent="login" action="#" class="card animated fadeIn">
     <div class="card-content">
-      <h3 class="title">{{ $t('auth.sign_in') }}</h3>
+      <h3 class="title">{{ $t('Auth.form.titles.signIn') }}</h3>
       <div class="field">
-        <label for="email" class="label">{{ $t('account.email') }}</label>
-        <div class="control">
+        <label for="email" class="label">{{ $t('Auth.form.fields.email') }}</label>
+        <div class="control has-icons-left">
           <input
             v-model.trim="$v.email.$model"
             :class="{ 'is-danger': $v.email.$error }"
@@ -12,19 +12,22 @@
             class="input"
             type="email"
           >
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
         </div>
         <p
           v-if="!$v.email.required && $v.email.$dirty"
           class="help is-danger"
-        >{{ $t('auth.validation.required') }}</p>
+        >{{ $t('Auth.form.validation.required') }}</p>
         <p
           v-if="!$v.email.email && $v.email.$dirty"
           class="help is-danger"
-        >{{ $t('auth.validation.email') }}</p>
+        >{{ $t('Auth.form.validation.email') }}</p>
       </div>
       <div class="field">
-        <label for="password" class="label">{{ $t('account.password') }}</label>
-        <div class="control">
+        <label for="password" class="label">{{ $t('Auth.form.fields.password') }}</label>
+        <div class="control has-icons-left">
           <input
             v-model.trim="$v.password.$model"
             :class="{ 'is-danger': $v.password.$error }"
@@ -32,14 +35,17 @@
             class="input"
             type="password"
           >
+          <span class="icon is-small is-left">
+            <i class="fas fa-key"></i>
+          </span>
         </div>
         <p
           v-if="!$v.password.required && $v.password.$dirty"
           class="help is-danger"
-        >{{ $t('auth.validation.required') }}</p>
+        >{{ $t('Auth.form.validation.required') }}</p>
       </div>
-      <article class="message is-danger" v-if="submitStatus">
-        <div class="message-body">{{ submitStatus }}</div>
+      <article class="message is-danger" v-if="error">
+        <div class="message-body">{{ $t(error) }}</div>
       </article>
     </div>
     <footer class="card-footer">
@@ -50,15 +56,14 @@
               :class="{ 'is-loading': loading }"
               :disabled="loading"
               class="button is-link"
-            >{{ $t('auth.login') }}</button>
+            >{{ $t('Auth.form.buttons.login') }}</button>
           </div>
-          {{ loading }}
           <div class="control">
             <router-link
               :to="{name: 'Register'}"
               :disabled="loading"
               class="button is-link is-light"
-            >{{ $t('auth.sign_up') }}</router-link>
+            >{{ $t('Auth.form.buttons.signUp') }}</router-link>
           </div>
         </div>
       </div>
@@ -72,9 +77,8 @@ import { required, email } from 'vuelidate/lib/validators';
 export default {
   name: 'Login',
   data: () => ({
-    email: 'vlad.bond05+1@gmail.com',
-    password: 'g22g5gyc',
-    submitStatus: null,
+    email: '',
+    password: '',
   }),
   validations: {
     email: {
@@ -83,16 +87,11 @@ export default {
     },
     password: { required },
   },
-  computed: {
-    loading() {
-      return this.$store.getters.loading;
-    },
-  },
   mounted() {
     if (this.$route.query.message) {
       const { message, type } = this.$route.query;
       this.$toast.open({
-        message: this.$t(`auth.${message}`),
+        message: this.$t(message),
         type,
       });
     }
@@ -101,17 +100,20 @@ export default {
     async login() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.submitStatus = null;
-        const user = {
-          identifier: this.email,
-          password: this.password,
-        };
         try {
-          const { data } = await this.$store.dispatch('loginUser', user);
-          console.log(data);
-          // await this.$router.push({ name: 'Projects' });
+          await this.$store.dispatch('loginUser', {
+            email: this.email,
+            password: this.password,
+          });
+          await this.$router.push({
+            name: 'Dashboard',
+            query: {
+              message: 'Dashboard.hello',
+              type: 'success',
+            },
+          });
         } catch (error) {
-          this.submitStatus = error.message;
+          // Dummy
         }
       }
     },

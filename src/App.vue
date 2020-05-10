@@ -6,22 +6,24 @@
   </div>
 </template>
 <script>
-import AuthLayout from './layouts/AuthLayout.vue';
+import BaseLayout from './layouts/BaseLayout.vue';
 import AppLayout from './layouts/AppLayout.vue';
 
 export default {
   name: 'App',
   computed: {
     layout() {
-      return `${this.$route.meta.layout || 'auth'}-layout`;
+      return `${this.$route.meta.layout || 'base'}-layout`;
     },
   },
   components: {
-    AuthLayout,
+    BaseLayout,
     AppLayout,
   },
 };
 </script>
 <style lang="scss">
-  @import 'assets/index';
+  @import '~bulma/bulma';
+  @import '~@brightleaf/animate.scss/animate';
+  @import 'assets/scss/index';
 </style>

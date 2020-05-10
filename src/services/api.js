@@ -1,10 +1,20 @@
+import Cookies from 'js-cookie';
 import axios from 'axios';
+import Vue from 'vue';
 
-export default axios.create({
+const api = axios.create({
   baseURL: process.env.VUE_APP_API_HOST,
-  timeout: 1000,
   withCredentials: false,
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+const token = Cookies.get('token');
+
+if (token) {
+  api.defaults.headers.common.Authorization = `Bearer ${token}`;
+}
+Vue.prototype.api = api;
+
+export default api;

@@ -1,0 +1,20 @@
+.is-v-centered {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+}
+
+.min-100vh {
+  min-height: 100vh;
+}
+
+.router-enter-active,
+.router-leave-active {
+  transition: opacity ease-in-out .1s;
+}
+
+.router-enter,
+.router-leave-active {
+  opacity: 0
+}
