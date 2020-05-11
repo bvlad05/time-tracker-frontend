@@ -90,19 +90,19 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const { isAuth, user } = store.getters;
+  const { isAuth } = store.getters;
   if (to.matched.some((record) => record.path === '*')) {
     next();
     return;
   }
   if (to.matched.some((record) => record.meta.auth)) {
-    if (isAuth && user) {
+    if (isAuth) {
       next();
     } else {
       next({ name: 'Login' });
     }
   } else if (to.matched.some((record) => !record.meta.auth)) {
-    if (isAuth && user) {
+    if (isAuth) {
       next({ name: 'Dashboard' });
     } else {
       next();
