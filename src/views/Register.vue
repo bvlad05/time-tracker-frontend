@@ -171,7 +171,7 @@ export default {
             },
           });
         } catch (error) {
-          // Dummy
+          console.error(error);
         }
       }
     },
