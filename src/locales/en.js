@@ -40,10 +40,6 @@ export default {
     },
     buy: 'Buy! Hope see you soon 😃',
   },
-  Dashboard: {
-    hello: 'Hello! Let\'s to work 💪',
-    welcome: '👋 Welcome to Time Tracker',
-  },
   Error: {
     notFound: {
       title: 'Page not found',
@@ -57,5 +53,17 @@ export default {
     dashboard: 'Dashboard',
     projects: 'Projects',
     clients: 'Clients',
+  },
+  Base: {
+    actions: 'Actions',
+    view: 'View',
+    edit: 'Edit',
+    delete: 'Delete',
+  },
+  // Dashboard
+  Dashboard: {
+    hello: 'Hello! Let\'s to work 💪',
+    welcome: '👋 Welcome to Time Tracker',
+    title: 'Dashboard',
   },
 };
