@@ -1,4 +1,5 @@
 import Header from '../components/Header.vue';
+import Loader from '../components/Loader.vue';
 
 export default {
   computed: {
@@ -11,5 +12,6 @@ export default {
   },
   components: {
     Header,
+    Loader,
   },
 };
