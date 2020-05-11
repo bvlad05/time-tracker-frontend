@@ -19,6 +19,7 @@ export default {
 <style scoped lang="scss">
   .base-wrapper {
     min-height: 100vh;
-    background: transparent url('../assets/images/base-background-1.jpg') no-repeat center / cover;
+    background: #415E72;
+    // url('../assets/images/base-background-1.jpg') no-repeat center / cover;
   }
 </style>
